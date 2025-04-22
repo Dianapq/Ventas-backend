@@ -12,11 +12,17 @@ const app = express();
 // Middlewares
 app.use(express.json());
 
-// ✅ Configurar CORS para permitir frontend desde Vercel
-app.use(cors({
+// Configurar CORS para permitir solicitudes del frontend en Vercel
+const corsOptions = {
   origin: 'https://ventas-front-three.vercel.app',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   credentials: true
-}));
+};
+
+app.use(cors(corsOptions));
+
+// Manejar solicitudes preflight (OPTIONS)
+app.options('*', cors(corsOptions));
 
 // Rutas
 app.use('/api/auth', authRoutes);
