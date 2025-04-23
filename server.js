@@ -9,7 +9,7 @@ const ventaRoutes = require('./routes/ventaRoutes');
 
 const app = express();
 
-// Middlewares
+// Middleware para parsear JSON
 app.use(express.json());
 
 // Configurar CORS para permitir solicitudes del frontend en Vercel
@@ -32,6 +32,7 @@ app.use('/api/ventas', ventaRoutes);
 const connectDB = require('./config/db');
 connectDB();
 
-// Iniciar servidor
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Servidor corriendo en el puerto ${PORT}`));
+// ⛔️ Elimina app.listen() y exporta la app para Vercel
+module.exports = app;
+
+
